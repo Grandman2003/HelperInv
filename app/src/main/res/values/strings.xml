@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PARUS</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="wait_status">Waiting to record</string>
+    <string name="record_status">Recording</string>
+    <string name="RECOGNITION_TYPE">recogn</string>
+    <string name="VOICE_RECOGNITION">V_R</string>
+    <string name="text_input">Tap to input text for pronouncing</string>
+    <string name="pinch">pinch</string>
+    <string name="speed">speed</string>
+    <string name="pronounce">Pronounce it</string>
+    <string name="not_supported_lang">This language is not supported</string>
+    <string name="pron_init_failed">Initialization failed</string>
+    <string name="voice_rec_denied">Sorry, but your device is not able to use this function</string>
+</resources>
