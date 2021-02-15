@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         pg=findViewById(R.id.viewpager);
-        adapter = new HelpersAdapter(this);
+        adapter = new HelpersAdapter(this,this);
         pg.setAdapter(adapter);
         try{
             onCatchIntent(getIntent());

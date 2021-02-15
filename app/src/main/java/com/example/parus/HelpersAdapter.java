@@ -17,10 +17,12 @@ public class HelpersAdapter extends RecyclerView.Adapter {
     final static int WATCH_TYPE=0;
     final static int HEAR_TYPE=1;
     final static int PRON_TYPE=2;
+    MainActivity activity;
     ArrayList<RecyclerView.ViewHolder> holders;
 
-    public HelpersAdapter(@NonNull Context context) {
+    public HelpersAdapter(@NonNull Context context, MainActivity activity) {
         this.context=context;
+        this.activity=activity;
         holders=new ArrayList<RecyclerView.ViewHolder>();
     }
 
@@ -73,7 +75,7 @@ public class HelpersAdapter extends RecyclerView.Adapter {
         switch (position){
             case 0:
                  WatchingHolder watchingHolder=(WatchingHolder) holder;
-                 watchingHolder.onBindModel();
+                 watchingHolder.onBindModel(activity);
                 break;
             case 1:
                 HearingHolder hearingHolder=(HearingHolder) holder;
