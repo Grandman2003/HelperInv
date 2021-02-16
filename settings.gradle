@@ -1,2 +1,4 @@
+include ':lib_task_api'
+include ':lib_interpreter'
 include ':app'
 rootProject.name = "PARUS"

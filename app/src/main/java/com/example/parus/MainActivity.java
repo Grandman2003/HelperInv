@@ -1,10 +1,17 @@
 package com.example.parus;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.ImageReader.OnImageAvailableListener;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.speech.RecognizerIntent;
+import android.util.Size;
 import android.widget.Toast;
 
+import com.example.parus.env.Logger;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
@@ -18,11 +25,17 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
-    ViewPager2 pg;
+
+//TODO Recreate MainActivity as CameraActivity
+
+public class MainActivity extends CameraActivity implements OnImageAvailableListener {
+   /* ViewPager2 pg;
     HelpersAdapter adapter;
     public static final String RECOGNITION_TYPE="recogn";
     public static final String VOICE_RECOGNITION="V_R";
+    public Handler handler;
+    public HandlerThread handlerThread;
+    public static final Logger LOGGER = new Logger();
     private final int VOICE_REQUEST_CODE=111;
 
     @Override
@@ -47,10 +60,41 @@ public class MainActivity extends AppCompatActivity {
         //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         //NavigationUI.setupWithNavController(navView, navController);
+    } */
+
+    @Override
+    protected void processImage() {
+
+    }
+
+    @Override
+    protected void onPreviewSizeChosen(Size size, int rotation) {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+
+        return 0;
+    }
+
+    @Override
+    protected Size getDesiredPreviewFrameSize() {
+        return null;
+    }
+
+    @Override
+    protected void setNumThreads(int numThreads) {
+
+    }
+
+    @Override
+    protected void setUseNNAPI(boolean isChecked) {
+
     }
 
 
-    public void onCatchIntent(Intent intent){
+  /*  public void onCatchIntent(Intent intent){
         if (intent!=null) {
             switch (intent.getStringExtra(RECOGNITION_TYPE)) {
                 case VOICE_RECOGNITION:
@@ -85,5 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
         }
-    }
+    } */
+
+
 }

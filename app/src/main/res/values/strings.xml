@@ -11,6 +11,7 @@
     <string name="pinch">pinch</string>
     <string name="speed">speed</string>
     <string name="pronounce">Pronounce it</string>
+    <string name="tfe_od_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
     <string name="not_supported_lang">This language is not supported</string>
     <string name="pron_init_failed">Initialization failed</string>
     <string name="voice_rec_denied">Sorry, but your device is not able to use this function</string>

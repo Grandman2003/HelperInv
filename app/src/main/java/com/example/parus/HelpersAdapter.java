@@ -7,26 +7,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class HelpersAdapter extends RecyclerView.Adapter {
+public class HelpersAdapter extends FragmentStatePagerAdapter {
     Context context;
     final String TAG="Library_Adapter";
     final static int WATCH_TYPE=0;
     final static int HEAR_TYPE=1;
     final static int PRON_TYPE=2;
-    MainActivity activity;
-    ArrayList<RecyclerView.ViewHolder> holders;
+    CameraActivity activity;
+    ArrayList<Fragment> holders;
 
-    public HelpersAdapter(@NonNull Context context, MainActivity activity) {
+    public HelpersAdapter(@NonNull FragmentManager fm,@NonNull Context context, CameraActivity activity) {
+        super(fm);
         this.context=context;
         this.activity=activity;
-        holders=new ArrayList<RecyclerView.ViewHolder>();
+        holders=new ArrayList<Fragment>();
+        holders.add(new WatchingHolder(activity));
+        holders.add(new HearingHolder());
+        holders.add(new PronouncingHolder());
     }
 
-    @Override
+    /*@Override
     public int getItemViewType(int position) {
         switch (position){
             case 0:
@@ -75,7 +82,7 @@ public class HelpersAdapter extends RecyclerView.Adapter {
         switch (position){
             case 0:
                  WatchingHolder watchingHolder=(WatchingHolder) holder;
-                 watchingHolder.onBindModel(activity);
+                 watchingHolder.onBindModel();
                 break;
             case 1:
                 HearingHolder hearingHolder=(HearingHolder) holder;
@@ -86,11 +93,18 @@ public class HelpersAdapter extends RecyclerView.Adapter {
                 pronouncingHolder.onBindModel();
                 break;
         }
+    } */
+
+
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        return holders.get(position);
     }
 
-
     @Override
-    public int getItemCount() {
+    public int getCount() {
         return 3;
     }
 }
