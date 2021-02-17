@@ -13,7 +13,7 @@
         android:backgroundTint="@color/white"
         app:cardCornerRadius="20dp"
         app:cardPreventCornerOverlap="true"
-        app:layout_constraintBottom_toTopOf="@id/pron_button"
+        app:layout_constraintBottom_toTopOf="@id/pron_button_card"
         app:layout_constraintTop_toBottomOf="@id/pronouncing_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -91,20 +91,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/pron_button"
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_margin="30dp"-->
+<!--        android:clickable="true"-->
+<!--        android:id="@+id/record_button"-->
+<!--        android:background="@color/purple_500"-->
+<!--        app:cardCornerRadius="8dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/scroll"-->
+<!--        app:layout_constraintVertical_bias="0.93"-->
+<!--        android:focusable="true">-->
+<!--        -->
+<!--    </androidx.cardview.widget.CardView>-->
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pronounce"
-        android:enabled="false"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
+        android:clickable="true"
+        android:id="@+id/pron_button_card"
+        app:cardCornerRadius="8dp"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        >
+        <Button
+            android:duplicateParentState="true"
+            android:id="@+id/pron_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pronounce"
+            android:enabled="false"
+            />
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

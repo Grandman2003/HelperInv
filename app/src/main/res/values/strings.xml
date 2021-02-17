@@ -55,4 +55,6 @@
     <string name="success_create">Success!</string>
     <string name="bot_image">Bot profile</string>
     <string name="bot_info_out_of">"Please enter token and bot name</string>
+    <string name="microphone">microphone</string>
+    <string name="hearing_fragment_hint">Push button and speak something to recognize...</string>
 </resources>
