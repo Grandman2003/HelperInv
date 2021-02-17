@@ -20,15 +20,14 @@ public class HelpersAdapter extends FragmentStatePagerAdapter {
     final static int WATCH_TYPE=0;
     final static int HEAR_TYPE=1;
     final static int PRON_TYPE=2;
-    CameraActivity activity;
     ArrayList<Fragment> holders;
 
-    public HelpersAdapter(@NonNull FragmentManager fm,@NonNull Context context, CameraActivity activity) {
+    public HelpersAdapter(@NonNull FragmentManager fm,@NonNull Context context /*CameraActivity activity*/) {
         super(fm);
         this.context=context;
-        this.activity=activity;
+        //this.activity=activity;
         holders=new ArrayList<Fragment>();
-        holders.add(new WatchingHolder(activity));
+        holders.add(new WatchingHolder());
         holders.add(new HearingHolder());
         holders.add(new PronouncingHolder());
     }
@@ -105,6 +104,6 @@ public class HelpersAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return holders.size();
     }
 }

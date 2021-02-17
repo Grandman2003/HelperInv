@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">PARUS</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">HelperPro</string>
+    <string name="tf_app_name">HelperPro</string>
+    <string name="title_home">Watch</string>
+    <string name="title_dashboard">Hear</string>
+    <string name="title_notifications">Pronounce</string>
     <string name="wait_status">Waiting to record</string>
     <string name="record_status">Recording</string>
     <string name="RECOGNITION_TYPE">recogn</string>
@@ -10,9 +11,48 @@
     <string name="text_input">Tap to input text for pronouncing</string>
     <string name="pinch">pinch</string>
     <string name="speed">speed</string>
+    <string name="successful_user_reg"> succed</string>
+    <string name="failed"> failed</string>
     <string name="pronounce">Pronounce it</string>
     <string name="tfe_od_camera_error" translation_description="Error regarding camera support[CHAR_LIMIT=40]">This device doesn\'t support Camera2 API.</string>
     <string name="not_supported_lang">This language is not supported</string>
     <string name="pron_init_failed">Initialization failed</string>
     <string name="voice_rec_denied">Sorry, but your device is not able to use this function</string>
+    <string name="first_fragment_label" translatable="false">Sign Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="sign_in">sign in</string>
+    <string name="login">e-mail</string>
+    <string name="create_ac">Create account</string>
+    <string name="password">password</string>
+    <string name="first_name">First name</string>
+    <string name="second_name">Second name</string>
+    <string name="registration">register</string>
+    <string name="registration_fragment_label" translatable="false">Registration Fragment</string>
+    <string name="password_error">Password is required</string>
+    <string name="email_error">E-mail is required</string>
+    <string name="first_name_error">First name is required</string>
+    <string name="last_name_error">Last name is required</string>
+    <string name="email_matches_error">Please, provide valid e-mail </string>
+    <string name="pass_leng_error">Min. password length should be 7 characters</string>
+    <string name="failed_user_reg">User\'s registration is failed.Try again</string>
+    <string name="login_failure">Failed to login.Please,  check your e-mail and password.</string>
+    <string name="title_activity_work_field">WorkFieldActivity</string>
+    <string name="title_activity_generator" translatable="false">GeneratorActivity</string>
+    <string name="title_main_activity" translatable="false">MainActivity</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="email_not_verified">Please, check your email to verify account</string>
+    <string name="business">business</string>
+    <string name="study">study</string>
+    <string name="playing">playing</string>
+    <string name="bot_name">Bot name</string>
+    <string name="token_bot">Bot token</string>
+    <string name="create_it">Create it</string>
+    <string name="description">Add functions:</string>
+    <string name="bot_info_string">Bot info</string>
+    <string name="success_create">Success!</string>
+    <string name="bot_image">Bot profile</string>
+    <string name="bot_info_out_of">"Please enter token and bot name</string>
 </resources>

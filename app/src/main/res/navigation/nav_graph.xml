@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/SignInFragment">
+
+    <fragment
+        android:id="@+id/SignInFragment"
+        android:name="com.example.boterprojectjunior.authorizing.SignInFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_sign_in">
+
+        <action
+            android:id="@+id/action_SignInFragment_to_RegistrationFragment"
+            app:destination="@id/RegistrationFragment" />
+        <action
+            android:id="@+id/action_SignInFragment_to_WorkField"
+            app:destination="@id/WorkFieldActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/RegistrationFragment"
+        android:name="com.example.parus."
+        android:label="@string/registration_fragment_label"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_Registration_to_WorkField"
+            app:destination="@id/WorkFieldActivity" />
+        <action
+            android:id="@+id/action_Registration_to_SignInFragment"
+            app:destination="@id/SignInFragment"/>
+    </fragment>
+
+    <activity
+        android:id="@+id/WorkFieldActivity"
+        android:name="com.example.boterprojectjunior.WorkFieldActivity"
+        android:label="@string/title_activity_work_field"
+        tools:layout="@layout/activity_work_field" />
+
+</navigation>

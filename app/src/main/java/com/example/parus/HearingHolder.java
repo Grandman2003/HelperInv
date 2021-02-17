@@ -46,9 +46,9 @@ public class HearingHolder extends Fragment {
 
     public void getSpeechForm(View view,Context context){
        // Intent intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        Intent intent=new Intent(context,MainActivity.class);
-        intent.putExtra(MainActivity.RECOGNITION_TYPE,
-                MainActivity.VOICE_RECOGNITION);
+        Intent intent=new Intent(context,DetectorActivity.class);
+        intent.putExtra(CameraActivity.RECOGNITION_TYPE,
+                CameraActivity.VOICE_RECOGNITION);
         context.startActivity(intent);
     }
 

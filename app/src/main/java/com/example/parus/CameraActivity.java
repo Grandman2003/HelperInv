@@ -17,7 +17,6 @@
 package com.example.parus;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,39 +29,31 @@ import android.media.Image;
 import android.media.Image.Plane;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Trace;
 import android.speech.RecognizerIntent;
-import android.util.AttributeSet;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.Size;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Surface;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import com.example.parus.env.ImageUtils;
 import com.example.parus.env.Logger;
@@ -79,6 +70,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private static final Logger LOGGER = new Logger();
 
   private static final int PERMISSIONS_REQUEST = 1;
+  ViewPager pager;
+  HelpersAdapter adapter;
 
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
   protected int previewWidth = 0;
@@ -93,154 +86,47 @@ public abstract class CameraActivity extends AppCompatActivity
   private int yRowStride;
   private Runnable postInferenceCallback;
   private Runnable imageConverter;
+  private ArrayList<MenuItem> items=new ArrayList<>();
 
   public static final String RECOGNITION_TYPE="recogn";
   public static final String VOICE_RECOGNITION="V_R";
   private final int VOICE_REQUEST_CODE=111;
+  private BottomNavigationView navView;
+  private TextToSpeech textToSpeech;
 
-  ViewPager pg;
-  HelpersAdapter adapter;
+ // private LinearLayout bottomSheetLayout;
+  //private LinearLayout gestureLayout;
+ // private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
-  private LinearLayout bottomSheetLayout;
-  private LinearLayout gestureLayout;
-  private BottomSheetBehavior<LinearLayout> sheetBehavior;
-
-  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
-  protected ImageView bottomSheetArrowImageView;
-  private ImageView plusImageView, minusImageView;
-  private SwitchCompat apiSwitchCompat;
-  private TextView threadsTextView;
+//  protected TextView frameValueTextView, cropValueTextView, inferenceTimeTextView;
+ // protected ImageView bottomSheetArrowImageView;
+//  private ImageView plusImageView, minusImageView;
+//  private SwitchCompat apiSwitchCompat;
+//  private TextView threadsTextView;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
     LOGGER.d("onCreate " + this);
-    super.onCreate(savedInstanceState);
+    super.onCreate(null);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    setContentView(R.layout.activity_main);
-    BottomNavigationView navView = findViewById(R.id.nav_view);
+    navView = findViewById(R.id.navy_view);
     // Passing each menu ID as a set of Ids because each
     // menu should be considered as top level destinations.
-    AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+   AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
             .build();
-    ArrayList<MenuItem> items=new ArrayList<MenuItem>();
-            items.add(navView.getMenu().getItem(0));
-            items.add(navView.getMenu().getItem(1));
-            items.add(navView.getMenu().getItem(2));
-    navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        pg.setCurrentItem(items.indexOf(item));
-        return true;
-      }
-    });
-    pg=findViewById(R.id.viewpager);
-    adapter = new HelpersAdapter(getSupportFragmentManager(),this,this);
-    pg.setAdapter(adapter);
-    pg.setPageTransformer(false, new ViewPager.PageTransformer() {
-      @Override
-      public void transformPage(@NonNull View page, float position) {
-        navView.setSelectedItemId(items.get(pg.getCurrentItem()).getItemId());
-      }
-    });
+    setContentView(R.layout.tfe_od_activity_camera);
+  //  Toolbar toolbar = findViewById(R.id.toolbar);
+   // setSupportActionBar(toolbar);
+  //  getSupportActionBar().setDisplayShowTitleEnabled(false);
+    pager=findViewById(R.id.list_elemy);
+    adapter=new HelpersAdapter(getSupportFragmentManager(),this);
+    pager.setAdapter(adapter);
     try{
       onCatchIntent(getIntent());
     }
     catch (NullPointerException exception){
       exception.getSuppressed();
-    }
-   // Toolbar toolbar = findViewById(R.id.toolbar);
-  //  setSupportActionBar(toolbar);
-   // getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
- /*   threadsTextView = findViewById(R.id.threads);
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
-    apiSwitchCompat = findViewById(R.id.api_info_switch);
-    bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
-    gestureLayout = findViewById(R.id.gesture_layout);
-    sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-
-    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-    vto.addOnGlobalLayoutListener(
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            } else {
-              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-            //                int width = bottomSheetLayout.getMeasuredWidth();
-            int height = gestureLayout.getMeasuredHeight();
-
-            sheetBehavior.setPeekHeight(height);
-          }
-        });
-    sheetBehavior.setHideable(false);
-
-    sheetBehavior.setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override
-          public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-              case BottomSheetBehavior.STATE_HIDDEN:
-                break;
-              case BottomSheetBehavior.STATE_EXPANDED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_down);
-                }
-                break;
-              case BottomSheetBehavior.STATE_COLLAPSED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                }
-                break;
-              case BottomSheetBehavior.STATE_DRAGGING:
-                break;
-              case BottomSheetBehavior.STATE_SETTLING:
-                bottomSheetArrowImageView.setImageResource(R.drawable.icn_chevron_up);
-                break;
-            }
-          }
-
-          @Override
-          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });
-
-    frameValueTextView = findViewById(R.id.frame_info);
-    cropValueTextView = findViewById(R.id.crop_info);
-    inferenceTimeTextView = findViewById(R.id.inference_info);
-
-    apiSwitchCompat.setOnCheckedChangeListener(this);
-
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this); */
-  }
-
-
-  public void onCatchIntent(Intent intent){
-    if (intent!=null) {
-      switch (intent.getStringExtra(RECOGNITION_TYPE)) {
-        case VOICE_RECOGNITION:
-          pg.setCurrentItem(1);
-          Intent voice_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-          intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                  RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-          intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                  Locale.getDefault());
-          if (intent.resolveActivity(getPackageManager()) == null) {
-            Toast.makeText(this, getString(R.string.voice_rec_denied),
-                    Toast.LENGTH_LONG).show();
-          } else {
-            startActivityForResult(voice_intent, VOICE_REQUEST_CODE);
-          }
-          break;
-        default:
-          break;
-      }
     }
   }
 
@@ -255,6 +141,36 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected byte[] getLuminance() {
     return yuvBytes[0];
+  }
+
+  public void InitSpeaker(){
+    textToSpeech=new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+      @Override
+      public void onInit(int status) {
+        if(status==TextToSpeech.SUCCESS){
+          int result=textToSpeech.setLanguage(Locale.UK);
+          if (result == TextToSpeech.LANG_MISSING_DATA
+                  || result== TextToSpeech.LANG_NOT_SUPPORTED) {
+            Log.e(".CameraActivity", getString(R.string.not_supported_lang));
+          }
+        } else{
+          Log.e(".CameraActivity", getString(R.string.pron_init_failed));
+        }
+      }
+    });
+  }
+
+  public void ShutDownSpeaker(){
+    if(textToSpeech!=null){
+      textToSpeech.stop();
+      textToSpeech.shutdown();
+    }
+  }
+
+  public void onSpeak(String text){
+   textToSpeech.setPitch(0.7f);
+    textToSpeech.setSpeechRate(0.8f);
+    textToSpeech.speak(text,TextToSpeech.QUEUE_FLUSH,null);
   }
 
   /** Callback for android.hardware.Camera API */
@@ -508,7 +424,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected void setFragment() {
     String cameraId = chooseCamera();
-    Log.e("CAMERAACTIVITY","Pasting completed");
+
     Fragment fragment;
     if (useCamera2API) {
       CameraConnectionFragment camera2Fragment =
@@ -531,10 +447,8 @@ public abstract class CameraActivity extends AppCompatActivity
       fragment =
           new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
     }
-    //FrameLayout layout =adapter.getItem(0).getView().getVie;
-    WatchingHolder holder=(WatchingHolder)adapter.getItem(0);
-    //holder.setCameraFragment(fragment,getFragmentManager());
-    getFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    adapter.holders.get(0).getChildFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+   // getSupportFragmentManager().beginTransaction()
   }
 
   protected void fillBytes(final Plane[] planes, final byte[][] yuvBytes) {
@@ -575,9 +489,48 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-    setUseNNAPI(isChecked);
-    if (isChecked) apiSwitchCompat.setText("NNAPI");
-    else apiSwitchCompat.setText("TFLITE");
+    //setUseNNAPI(isChecked);
+  }
+
+  @Override
+  public void onClick(View v) {
+
+  }
+
+  protected void showFrameInfo(String frameInfo) {
+  //  frameValueTextView.setText(frameInfo);
+  }
+
+  protected void showCropInfo(String cropInfo) {
+  //  cropValueTextView.setText(cropInfo);
+  }
+
+  protected void showInference(String inferenceTime) {
+   // inferenceTimeTextView.setText(inferenceTime);
+  }
+
+
+  public void onCatchIntent(Intent intent){
+    if (intent!=null) {
+      switch (intent.getStringExtra(RECOGNITION_TYPE)) {
+        case VOICE_RECOGNITION:
+          pager.setCurrentItem(1);
+          Intent voice_intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+          intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                  RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+          intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+                  Locale.getDefault());
+          if (intent.resolveActivity(getPackageManager()) == null) {
+            Toast.makeText(this, getString(R.string.voice_rec_denied),
+                    Toast.LENGTH_LONG).show();
+          } else {
+            startActivityForResult(voice_intent, VOICE_REQUEST_CODE);
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   @Override
@@ -592,39 +545,6 @@ public abstract class CameraActivity extends AppCompatActivity
 
         }
     }
-  }
-
-  @Override
-  public void onClick(View v) {
-    /*if (v.getId() == R.id.plus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads >= 9) return;
-      numThreads++;
-      threadsTextView.setText(String.valueOf(numThreads));
-      setNumThreads(numThreads);
-    } else if (v.getId() == R.id.minus) {
-      String threads = threadsTextView.getText().toString().trim();
-      int numThreads = Integer.parseInt(threads);
-      if (numThreads == 1) {
-        return;
-      }
-      numThreads--;
-      threadsTextView.setText(String.valueOf(numThreads));
-      setNumThreads(numThreads);
-    }*/
-  }
-
-  protected void showFrameInfo(String frameInfo) {
-    frameValueTextView.setText(frameInfo);
-  }
-
-  protected void showCropInfo(String cropInfo) {
-    cropValueTextView.setText(cropInfo);
-  }
-
-  protected void showInference(String inferenceTime) {
-    inferenceTimeTextView.setText(inferenceTime);
   }
 
   protected abstract void processImage();

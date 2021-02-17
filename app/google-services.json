@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031138365552",
+    "project_id": "predprof-798d4",
+    "storage_bucket": "predprof-798d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031138365552:android:3c34f4889a5271dd8864b5",
+        "android_client_info": {
+          "package_name": "com.example.parus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031138365552-57ce3sll0bomtsbtsg82ij07k58fthps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe6pAIw2bPak1quGu6D2_blgcKdbiBlx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031138365552-57ce3sll0bomtsbtsg82ij07k58fthps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

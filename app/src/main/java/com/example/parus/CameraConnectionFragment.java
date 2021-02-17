@@ -17,14 +17,14 @@
 package com.example.parus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 
 import androidx.core.app.ActivityCompat;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
+//import android.app.Fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -71,7 +71,6 @@ import java.util.concurrent.TimeUnit;
 
 public class CameraConnectionFragment extends Fragment {
   private static final Logger LOGGER = new Logger();
-
 
   /**
    * The camera preview size will be chosen to be the smallest frame by pixel size capable of
@@ -196,7 +195,7 @@ public class CameraConnectionFragment extends Fragment {
             }
           };
 
-  private CameraConnectionFragment(
+  public CameraConnectionFragment(
           final ConnectionCallback connectionCallback,
           final OnImageAvailableListener imageListener,
           final int layout,
