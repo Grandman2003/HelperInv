@@ -30,8 +30,8 @@ public class AuthorisingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
-       // Toolbar toolbar = findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
+       //Toolbar toolbar = findViewById(R.id.toolbar);
+      //setSupportActionBar(toolbar);
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         LayoutInflater li=LayoutInflater.from(this);
     }
@@ -40,11 +40,6 @@ public class AuthorisingActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo info = Objects.requireNonNull(connectivityManager).getActiveNetworkInfo();
-        if (info == null || !info.isConnected() || !info.isAvailable()) {
-            handler.sendEmptyMessage(1);
-        } else {
-            handler.sendEmptyMessage(2);
-        }
     }
 
     @Override
