@@ -120,8 +120,8 @@ public class SignInFragment extends Fragment {
             view.findViewById(R.id.regist_button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  //  NavHostFragment.findNavController(com.example.boterprojectjunior.authorizing.SignInFragment.this)
-                  //          .navigate(R.id.action_SignInFragment_to_RegistrationFragment);
+                   NavHostFragment.findNavController(com.example.parus.autorising.SignInFragment.this)
+                            .navigate(R.id.action_SignInFragment_to_RegistrationFragment);
                 }
             });
 
@@ -178,8 +178,8 @@ public class SignInFragment extends Fragment {
                         });
                       //  initUser(app_user[0]);
 
-                     //   NavHostFragment.findNavController(com.example.boterprojectjunior.authorizing.SignInFragment.this)
-                       //         .navigate(R.id.action_SignInFragment_to_WorkField);
+                        NavHostFragment.findNavController(com.example.parus.autorising.SignInFragment.this)
+                                .navigate(R.id.action_SignInFragment_to_WorkField);
                     }else{
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(requireContext(),requireContext().getString(R.string.email_not_verified), Toast.LENGTH_LONG).show();

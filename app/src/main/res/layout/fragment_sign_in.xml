@@ -50,6 +50,7 @@
         android:text="@string/create_ac"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:textColor="@color/purple_500"
+        android:enabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
