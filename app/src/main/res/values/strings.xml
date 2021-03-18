@@ -57,6 +57,4 @@
     <string name="bot_info_out_of">"Please enter token and bot name</string>
     <string name="microphone">microphone</string>
     <string name="hearing_fragment_hint">Push button and speak something to recognize...</string>
-    <string name="speaker">speaker</string>
-    <string name="enter_some_text_and_push_button_to_pronounce_it">Enter some text and push button to pronounce it</string>
 </resources>

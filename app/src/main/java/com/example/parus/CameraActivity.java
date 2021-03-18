@@ -69,6 +69,8 @@ public abstract class CameraActivity extends AppCompatActivity
         View.OnClickListener {
   private static final Logger LOGGER = new Logger();
 
+  Fragment fragment;
+
   private static final int PERMISSIONS_REQUEST = 1;
   ViewPager pager;
   HelpersAdapter adapter;
@@ -78,6 +80,7 @@ public abstract class CameraActivity extends AppCompatActivity
   protected int previewHeight = 0;
   private boolean debug = false;
   private Handler handler;
+  private boolean state=false;
   private HandlerThread handlerThread;
   private boolean useCamera2API;
   private boolean isProcessingFrame = false;
@@ -128,6 +131,25 @@ public abstract class CameraActivity extends AppCompatActivity
     catch (NullPointerException exception){
       exception.getSuppressed();
     }
+    pager.setPageTransformer(false, new ViewPager.PageTransformer() {
+      @Override
+      public void transformPage(@NonNull View page, float position) {
+        if(pager.getCurrentItem()!=0 && state) {
+          try {
+            unSetFragment();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+          if(pager.getCurrentItem()==0 && !state){
+            try{
+              setFragment();
+            }catch (Exception e){
+              e.printStackTrace();
+            }
+        }
+      }
+    });
   }
 
   protected int[] getRgbBytes() {
@@ -338,7 +360,9 @@ public abstract class CameraActivity extends AppCompatActivity
     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     if (requestCode == PERMISSIONS_REQUEST) {
       if (allPermissionsGranted(grantResults)) {
-        setFragment();
+        //if(pager.getCurrentItem()==0) {
+        //  setFragment();
+       // }
       } else {
         requestPermission();
       }
@@ -422,10 +446,14 @@ public abstract class CameraActivity extends AppCompatActivity
     return null;
   }
 
+  protected void unSetFragment(){
+    adapter.holders.get(0).getChildFragmentManager().beginTransaction().remove(fragment).commit();
+    ShutDownSpeaker();
+    state=false;
+  }
+
   protected void setFragment() {
     String cameraId = chooseCamera();
-
-    Fragment fragment;
     if (useCamera2API) {
       CameraConnectionFragment camera2Fragment =
           CameraConnectionFragment.newInstance(
@@ -448,6 +476,8 @@ public abstract class CameraActivity extends AppCompatActivity
           new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
     }
     adapter.holders.get(0).getChildFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+    InitSpeaker();
+    state=true;
    // getSupportFragmentManager().beginTransaction()
   }
 

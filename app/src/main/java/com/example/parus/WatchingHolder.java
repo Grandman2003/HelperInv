@@ -22,7 +22,7 @@ public class WatchingHolder extends Fragment {
         CameraActivity activity= (CameraActivity) getActivity();
         if (activity.hasPermission()) {
             activity.setFragment();
-            activity.InitSpeaker();
+           // activity.InitSpeaker();
         } else {
             activity.requestPermission();
         }
@@ -34,21 +34,20 @@ public class WatchingHolder extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         CameraActivity activity= (CameraActivity) getActivity();
         if (activity.hasPermission()) {
-            activity.setFragment();
-            activity.InitSpeaker();
+           // activity.setFragment();
+            //activity.InitSpeaker();
         } else {
             activity.requestPermission();
         }
     }
 
     public WatchingHolder(){
-
     }
 
     @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+    public void onDestroyView() {
+        super.onDestroyView();
         CameraActivity activity= (CameraActivity) getActivity();
-        activity.ShutDownSpeaker();
+      //  activity.unSetFragment();
     }
 }

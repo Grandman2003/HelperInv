@@ -200,7 +200,8 @@ public class RegistrationFragment extends Fragment {
                                                 Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.INVISIBLE);
                                         userer.sendEmailVerification();
-                                        NavHostFragment.findNavController(RegistrationFragment.this).navigate(R.id.action_Registration_to_SignInFragment);
+                                        NavHostFragment.findNavController(RegistrationFragment.this)
+                                                .navigate(R.id.action_Registration_to_SignInFragment);
                                         //redirect to login layout
                                     }else{
                                         Toast.makeText(requireContext(),

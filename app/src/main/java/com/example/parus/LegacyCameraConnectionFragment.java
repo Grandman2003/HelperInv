@@ -61,8 +61,6 @@ public class LegacyCameraConnectionFragment extends Fragment {
   private AutoFitTextureView textureView;
   private SurfaceTexture availableSurfaceTexture = null;
 
-  public LegacyCameraConnectionFragment(){
-  }
 
   /**
    * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a {@link
